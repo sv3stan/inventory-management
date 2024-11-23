@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css" />
+    <title>Сервис управления остатками</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header">
+            <!-- <div class="grid-header-container"> -->
+            <h1>Сервис управления остатками</h1>
+            <!-- </div> -->
+        </div>
+
+
+
+        <div class="item_style">
+            <h2>Добавить магазин</h2>
+            <form id="addShopForm">
+                <label for="shopName">Название магазина:</label>
+                <input type="text" id="shopName" name="shopName" required>
+                <div>
+                    <button type="submit">Добавить магазин</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="item_style">
+            <h2>Добавить товар</h2>
+            <form id="addProductForm">
+                <label for="productPLU">Артикул товара:</label>
+                <input type="text" id="productPLU" name="productPLU" required>
+                <label for="productName">Название товара:</label>
+                <input type="text" id="productName" name="productName" required>
+                <div>
+                    <button type="submit">Добавить товар</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="item_style">
+
+            <form id="freeForm">
+
+            </form>
+        </div>
+
+
+
+        <div class="item_style">
+            <h2>Добавить остаток</h2>
+            <form id="addStockForm">
+                <label for="shopId">ID магазина:</label>
+                <input type="number" id="shopId" name="shopId" required>
+                <label for="productPLUStock">ID товара:</label>
+                <input type="text" id="productID" name="productID" required>
+                <label for="shelfQuantity">Количество товара на полке:</label>
+                <input type="number" id="shelfQuantity" name="shelfQuantity" required>
+                <label for="orderQuantity">Количество товара в заказе:</label>
+                <input type="number" id="orderQuantity" name="orderQuantity" required>
+                <div>
+                    <button type="submit">Добавить остаток</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="item_style">
+            <h2>Увеличить остаток</h2>
+            <form id="addStockForm">
+                <label for="shopId">ID магазина:</label>
+                <input type="number" id="shopId" name="shopId" required>
+                <label for="productPLUStock">ID товара:</label>
+                <input type="text" id="productID" name="productID" required>
+                <label for="shelfQuantity">Количество товара на полке:</label>
+                <input type="number" id="shelfQuantity" name="shelfQuantity" required>
+                <label for="orderQuantity">Количество товара в заказе:</label>
+                <input type="number" id="orderQuantity" name="orderQuantity" required>
+                <div>
+                    <button type="submit">Увеличить остаток</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="item_style">
+            <h2>Уменьшить остаток</h2>
+            <form id="addStockForm">
+                <label for="shopId">ID магазина:</label>
+                <input type="number" id="shopId" name="shopId" required>
+                <label for="productPLUStock">ID товара:</label>
+                <input type="text" id="productID" name="productID" required>
+                <label for="shelfQuantity">Количество товара на полке:</label>
+                <input type="number" id="shelfQuantity" name="shelfQuantity" required>
+                <label for="orderQuantity">Количество товара в заказе:</label>
+                <input type="number" id="orderQuantity" name="orderQuantity" required>
+                <div>
+                    <button type="submit">Уменьшить остаток</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="item_style">
+            <h2>Фильтр остатков </h2>
+            <form id="filterShopAndPLUForm">
+                <label for="filterShopId">Фильтр по Shop_ID:</label>
+                <input type="number" id="filterShopId" name="filterShopId">
+                <label for="filterPLU">Фильтр по Product_PLU:</label>
+                <input type="text" id="filterPLU" name="filterPLU">
+                <div>
+                    <button type="submit">Фильтровать остатки</button>
+                </div>
+                <div>
+
+                </div>
+
+                <div>
+                    <button type="button" id="clearFilters">Очистить данные</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="item_style">
+            <h2>Фильтр остатков на полке</h2>
+            <form id="filterShelfForm">
+                <label for="quantityOnShelfMin">Количество на полке (Min):</label>
+                <input type="number" id="quantityOnShelfMin" name="quantityOnShelfMin">
+                <label for="quantityOnShelfMax">Количество на полке (Max):</label>
+                <input type="number" id="quantityOnShelfMax" name="quantityOnShelfMax">
+                <div>
+                    <button type="submit">Фильтровать по количеству на полке</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="item_style">
+            <h2>Фильтр остатков в заказе</h2>
+            <form id="filterOrderForm">
+                <label for="quantityInOrderMin">Количество в заказе (Min):</label>
+                <input type="number" id="quantityInOrderMin" name="quantityInOrderMin">
+                <label for="quantityInOrderMax">Количество в заказе (Max):</label>
+                <input type="number" id="quantityInOrderMax" name="quantityInOrderMax">
+                <div>
+                    <button type="submit">Фильтровать по количеству в заказе</button>
+                </div>
+            </form>
+        </div>
+
+
+        <table id="stocksTable" class="table-output">
+            <thead>
+                <tr>
+                    <th>Название магазина</th>
+                    <th>Название товара</th>
+                    <th>Артикул</th>
+                    <th>Товар на полке</th>
+                    <th>Товар в заказе</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be added dynamically -->
+            </tbody>
+        </table>
+
+
+
+    </div>
+    <script src='/index.js'></script>
+</body>
+
+</html>

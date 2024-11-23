@@ -1,0 +1,87 @@
+﻿  :root {
+      --main-bg-color: rgba(255, 255, 255, 0.9);
+      --table-bg-color: #edc077e6;
+      --main-margin-bottom: 50px;
+      --main-margin: 10px;
+      --main-padding: 10px;
+      --table-border-color: 1px solid rgb(100, 100, 100);
+      --hover-color: #fd9e04e6;
+  }
+
+  body {
+      font-family: Arial, sans-serif;
+      margin: 2px;
+      margin: 0 auto;
+      display: flex;
+  }
+
+  form {
+      margin-bottom: 10px;
+  }
+
+  label {
+      display: block;
+      margin: 5px 0;
+  }
+
+  input,
+  button {
+      margin: 5px 0;
+      padding: 5px;
+  }
+
+
+
+  .item_style {
+      grid-column-start: span 1;
+      margin: var(--main-margin);
+      padding: var(--main-padding);
+      border: var(--table-border-color);
+      background-color: var(--main-bg-color);
+      flex-direction: column;
+      text-align: justify;
+  }
+
+  .container {
+      width: 80%;
+      display: grid;
+      margin: auto;
+      grid-template-columns: repeat(3, 32%);
+      grid-template-rows: auto;
+      justify-content: center;
+  }
+
+  .header {
+      display: grid;
+      grid-column-start: span 3;
+      background-color: var(--main-bg-color);
+      margin-bottom: var(--main-margin-bottom);
+      margin: var(--main-margin);
+      padding: var(--main-padding);
+      align-items: center;
+      text-align: center;
+  }
+
+
+  .table-output {
+      width: 100%;
+      grid-column-start: span 3;
+      border: var(--table-border-color);
+      border-collapse: collapse;
+      margin: var(--main-margin);
+      padding: var(--main-padding);
+      padding: 10px 10px;
+      text-align: center;
+  }
+
+  .table-output th {
+
+      background-color: var(--table-bg-color);
+      padding: 5px 5px;
+  }
+
+  .table-output td {
+
+      background-color: var(--main-bg-color);
+      padding: 5px 5px;
+  }
