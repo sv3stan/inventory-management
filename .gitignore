@@ -2,10 +2,6 @@
 node_modules/
 npm-debug.log
 
-# TypeScript
-*.tsbuildinfo
-dist/
-build/
 
 # VS Code
 .vscode/
