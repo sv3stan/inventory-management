@@ -11,7 +11,6 @@ document.getElementById('addShopForm').addEventListener('submit', async (e) => {
   console.log('Shop added!');
 });
 
-// Add product
 document
   .getElementById('addProductForm')
   .addEventListener('submit', async (e) => {
@@ -26,27 +25,59 @@ document
     console.log('Product added!');
   });
 
-// Add stock
-document
-  .getElementById('addStockForm')
-  .addEventListener('submit', async (e) => {
-    e.preventDefault();
+document.querySelectorAll('.stock-action').forEach((button) => {
+  button.addEventListener('click', async (e) => {
+    const action = e.target.getAttribute('data-action');
     const shopId = document.getElementById('shopId').value;
     const productID = document.getElementById('productID').value;
-    const shelfQuantity = document.getElementById('shelfQuantity').value;
-    const orderQuantity = document.getElementById('orderQuantity').value;
-    await fetch(`${API_URL}/stocks`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        shop_id: shopId,
-        product_id: productID,
-        quantity_on_shelf: parseInt(shelfQuantity, 10),
-        quantity_in_order: parseInt(orderQuantity, 10),
-      }),
-    });
-    console.log('Stock added!');
+    const shelfQuantity = parseInt(
+      document.getElementById('shelfQuantity').value || '0',
+      10
+    );
+    const orderQuantity = parseInt(
+      document.getElementById('orderQuantity').value || '0',
+      10
+    );
+    if (!shopId || !productID || isNaN(shelfQuantity) || isNaN(orderQuantity)) {
+      console.error('Incorrect data');
+      console.log('Please fill out all fields correctly');
+      return;
+    }
+    try {
+      const actions = {
+        add: { url: `${API_URL}/stocks/`, method: 'POST' },
+        increase: { url: `${API_URL}/stocks/inc`, method: 'PUT' },
+        decrease: { url: `${API_URL}/stocks/dec`, method: 'PUT' },
+      };
+      const { url, method } = actions[action] || {};
+      if (!url || !method) {
+        console.error('Unknown error');
+        console.log('Unknown error');
+        return;
+      }
+      const response = await fetch(url, {
+        method: method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          shop_id: shopId,
+          product_id: productID,
+          quantity_on_shelf: shelfQuantity,
+          quantity_in_order: orderQuantity,
+        }),
+      });
+      if (response.ok) {
+        console.log(`Operation "${action}" completed successfully!`);
+      } else {
+        const errorText = await response.text();
+        console.error('Error during operation:', errorText);
+        console.log(`Error: ${errorText}`);
+      }
+    } catch (err) {
+      console.error('Request Error:', err);
+      console.log('An error occurred while executing the request');
+    }
   });
+});
 
 const updateStocksTable = (stocks) => {
   const tableBody = document.querySelector('#stocksTable tbody');

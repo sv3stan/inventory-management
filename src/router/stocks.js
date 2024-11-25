@@ -7,8 +7,8 @@ const router = express.Router();
 
 module.exports = (pool) => {
   router.post('/', addStocks(pool));
-  router.put('/increase', incStocks(pool));
-  router.put('/decrease', decStocks(pool));
+  router.put('/inc', incStocks(pool));
+  router.put('/dec', decStocks(pool));
   router.get('/', getStocks(pool));
   return router;
 };

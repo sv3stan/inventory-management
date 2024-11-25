@@ -1,4 +1,6 @@
-﻿const addStocks = (pool) => async (req, res) => {
+﻿const axios = require('axios');
+
+const addStocks = (pool) => async (req, res) => {
   const { product_id, shop_id, quantity_on_shelf, quantity_in_order } =
     req.body;
   if (
@@ -26,6 +28,28 @@
       'INSERT INTO stock (product_id, shop_id, quantity_on_shelf, quantity_in_order) VALUES ($1, $2, $3, $4) RETURNING *',
       [product_id, shop_id, quantity_on_shelf, quantity_in_order]
     );
+
+    const product = await pool.query('SELECT plu FROM products WHERE id = $1', [
+      product_id,
+    ]);
+    const plu = product.rows[0].plu;
+
+    const historyServiceUrl = 'http://localhost:3002/stocks';
+    const historyData = {
+      plu,
+      shop_id,
+      action: 'add_stocks',
+      quantity_on_shelf,
+      quantity_in_order,
+    };
+    axios
+      .post(historyServiceUrl, historyData)
+      .then((response) => {
+        console.log('History created:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error creating history:', error);
+      });
 
     res.status(201).json(result.rows[0]);
   } catch (error) {
@@ -72,6 +96,31 @@ const incStocks = (pool) => async (req, res) => {
       'UPDATE stock SET quantity_on_shelf = $3, quantity_in_order = $4 WHERE product_id = $1 AND shop_id = $2 RETURNING *',
       [product_id, shop_id, newShelfQuantity, newOrderQuantity]
     );
+
+    const product = await pool.query('SELECT plu FROM products WHERE id = $1', [
+      product_id,
+    ]);
+    const plu = product.rows[0].plu;
+
+    const historyServiceUrl = 'http://localhost:3002/stocks/inc';
+    const historyData = {
+      plu,
+      shop_id,
+      action: 'inc_stocks',
+      quantity_on_shelf,
+      quantity_in_order,
+    };
+    console.log(historyServiceUrl);
+    console.log(historyData);
+
+    axios
+      .put(historyServiceUrl, historyData)
+      .then((response) => {
+        console.log('History created:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error creating history:', error);
+      });
 
     res.status(200).json(result.rows[0]);
   } catch (err) {

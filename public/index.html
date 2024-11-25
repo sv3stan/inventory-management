@@ -12,9 +12,7 @@
     <div class="container">
 
         <div class="header">
-            <!-- <div class="grid-header-container"> -->
             <h1>Сервис управления остатками</h1>
-            <!-- </div> -->
         </div>
 
 
@@ -43,63 +41,23 @@
             </form>
         </div>
 
-
         <div class="item_style">
-
-            <form id="freeForm">
-
-            </form>
-        </div>
-
-
-
-        <div class="item_style">
-            <h2>Добавить остаток</h2>
-            <form id="addStockForm">
+            <h2>Управление остатками</h2>
+            <form id="stockForm">
                 <label for="shopId">ID магазина:</label>
                 <input type="number" id="shopId" name="shopId" required>
-                <label for="productPLUStock">ID товара:</label>
+                <label for="productID">ID товара:</label>
                 <input type="text" id="productID" name="productID" required>
                 <label for="shelfQuantity">Количество товара на полке:</label>
                 <input type="number" id="shelfQuantity" name="shelfQuantity" required>
                 <label for="orderQuantity">Количество товара в заказе:</label>
                 <input type="number" id="orderQuantity" name="orderQuantity" required>
                 <div>
-                    <button type="submit">Добавить остаток</button>
-                </div>
-            </form>
-        </div>
-
-        <div class="item_style">
-            <h2>Увеличить остаток</h2>
-            <form id="addStockForm">
-                <label for="shopId">ID магазина:</label>
-                <input type="number" id="shopId" name="shopId" required>
-                <label for="productPLUStock">ID товара:</label>
-                <input type="text" id="productID" name="productID" required>
-                <label for="shelfQuantity">Количество товара на полке:</label>
-                <input type="number" id="shelfQuantity" name="shelfQuantity" required>
-                <label for="orderQuantity">Количество товара в заказе:</label>
-                <input type="number" id="orderQuantity" name="orderQuantity" required>
-                <div>
-                    <button type="submit">Увеличить остаток</button>
-                </div>
-            </form>
-        </div>
-
-        <div class="item_style">
-            <h2>Уменьшить остаток</h2>
-            <form id="addStockForm">
-                <label for="shopId">ID магазина:</label>
-                <input type="number" id="shopId" name="shopId" required>
-                <label for="productPLUStock">ID товара:</label>
-                <input type="text" id="productID" name="productID" required>
-                <label for="shelfQuantity">Количество товара на полке:</label>
-                <input type="number" id="shelfQuantity" name="shelfQuantity" required>
-                <label for="orderQuantity">Количество товара в заказе:</label>
-                <input type="number" id="orderQuantity" name="orderQuantity" required>
-                <div>
-                    <button type="submit">Уменьшить остаток</button>
+                    <button type="button" class="stock-action" data-action="add">Добавить остаток</button>
+                    <p></p>
+                    <button type="button" class="stock-action" data-action="increase">Увеличить остаток</button>
+                    <p></p>
+                    <button type="button" class="stock-action" data-action="decrease">Уменьшить остаток</button>
                 </div>
             </form>
         </div>
@@ -164,7 +122,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Rows will be added dynamically -->
+
             </tbody>
         </table>
 
