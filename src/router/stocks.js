@@ -6,9 +6,9 @@ const { getStocks } = require('../controllers/getStocks');
 const router = express.Router();
 
 module.exports = (pool) => {
-  router.post('/', addStocks(pool));
-  router.put('/inc', incStocks(pool));
-  router.put('/dec', decStocks(pool));
+  router.post('/add_stocks', addStocks(pool));
+  router.put('/inc_stocks', incStocks(pool));
+  router.put('/dec_stocks', decStocks(pool));
   router.get('/', getStocks(pool));
   return router;
 };

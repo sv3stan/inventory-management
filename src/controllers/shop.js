@@ -11,9 +11,19 @@
       [name]
     );
     res.status(201).json(result.rows[0]);
+
+    console.log(
+      `Fields ${JSON.stringify(
+        result.rows[0]
+      )} have been successfully added to the table`
+    );
   } catch (error) {
-    console.error('Error creating shop:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    if (error.code === '23505') {
+      console.error('Duplicate shop name:', error.detail);
+      return res.status(409).json({ error: 'Shop name already exists' });
+    }
+    console.error('Unexpected error while adding shop:', error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
 

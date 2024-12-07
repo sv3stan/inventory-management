@@ -15,8 +15,6 @@
             <h1>Сервис управления остатками</h1>
         </div>
 
-
-
         <div class="item_style">
             <h2>Добавить магазин</h2>
             <form id="addShopForm">
@@ -32,7 +30,8 @@
             <h2>Добавить товар</h2>
             <form id="addProductForm">
                 <label for="productPLU">Артикул товара:</label>
-                <input type="text" id="productPLU" name="productPLU" required>
+                <input type="text" id="productPLU" name="productPLU" required pattern="[a-zA-Z]{2}-\d{6}"
+                    title="Введите код в формате: aa-123456">
                 <label for="productName">Название товара:</label>
                 <input type="text" id="productName" name="productName" required>
                 <div>
@@ -47,7 +46,7 @@
                 <label for="shopId">ID магазина:</label>
                 <input type="number" id="shopId" name="shopId" required>
                 <label for="productID">ID товара:</label>
-                <input type="text" id="productID" name="productID" required>
+                <input type="number" id="productID" name="productID" required>
                 <label for="shelfQuantity">Количество товара на полке:</label>
                 <input type="number" id="shelfQuantity" name="shelfQuantity" required>
                 <label for="orderQuantity">Количество товара в заказе:</label>
@@ -61,7 +60,6 @@
                 </div>
             </form>
         </div>
-
 
         <div class="item_style">
             <h2>Фильтр остатков </h2>
@@ -82,7 +80,6 @@
                 </div>
             </form>
         </div>
-
 
         <div class="item_style">
             <h2>Фильтр остатков на полке</h2>
@@ -110,7 +107,6 @@
             </form>
         </div>
 
-
         <table id="stocksTable" class="table-output">
             <thead>
                 <tr>
@@ -125,8 +121,6 @@
 
             </tbody>
         </table>
-
-
 
     </div>
     <script src='/index.js'></script>

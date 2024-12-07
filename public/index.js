@@ -3,26 +3,55 @@
 document.getElementById('addShopForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const shopName = document.getElementById('shopName').value;
-  await fetch(`${API_URL}/shop`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: shopName }),
-  });
-  console.log('Shop added!');
+  try {
+    const response = await fetch(`${API_URL}/shop`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: shopName }),
+    });
+    const data = await response.json();
+    if (response.status === 201) {
+      console.log(`Shop "${data.name}" was added successfully!`);
+    } else if (response.status === 409) {
+      console.error('Shop name already exists:', data.error);
+    } else {
+      console.error(`Error: ${data.error || 'Unknown error'}`);
+    }
+  } catch (err) {
+    console.error('Network error:', err);
+  }
 });
 
 document
   .getElementById('addProductForm')
   .addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const productPLU = document.getElementById('productPLU').value;
     const productName = document.getElementById('productName').value;
-    await fetch(`${API_URL}/product`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plu: productPLU, name: productName }),
-    });
-    console.log('Product added!');
+
+    try {
+      const response = await fetch(`${API_URL}/product`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plu: productPLU, name: productName }),
+      });
+
+      const data = await response.json();
+      if (response.status === 201) {
+        console.log(
+          `Product "${data.plu}:${data.name}" was added successfully!`
+        );
+      } else if (response.status === 400) {
+        console.error('Please provide all required fields.');
+      } else if (response.status === 409) {
+        console.error('A product with this PLU already exists.');
+      } else {
+        console.error(`Error: ${data.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      console.error('Network error:', err);
+    }
   });
 
 document.querySelectorAll('.stock-action').forEach((button) => {
@@ -45,9 +74,9 @@ document.querySelectorAll('.stock-action').forEach((button) => {
     }
     try {
       const actions = {
-        add: { url: `${API_URL}/stocks/`, method: 'POST' },
-        increase: { url: `${API_URL}/stocks/inc`, method: 'PUT' },
-        decrease: { url: `${API_URL}/stocks/dec`, method: 'PUT' },
+        add: { url: `${API_URL}/stocks/add_stocks`, method: 'POST' },
+        increase: { url: `${API_URL}/stocks/inc_stocks`, method: 'PUT' },
+        decrease: { url: `${API_URL}/stocks/dec_stocks`, method: 'PUT' },
       };
       const { url, method } = actions[action] || {};
       if (!url || !method) {
@@ -68,9 +97,9 @@ document.querySelectorAll('.stock-action').forEach((button) => {
       if (response.ok) {
         console.log(`Operation "${action}" completed successfully!`);
       } else {
-        const errorText = await response.text();
-        console.error('Error during operation:', errorText);
-        console.log(`Error: ${errorText}`);
+        const errorData = await response.json();
+        console.error('Error during operation:', errorData.message);
+        console.log(`Error: ${errorData.message}`);
       }
     } catch (err) {
       console.error('Request Error:', err);
@@ -118,7 +147,6 @@ document
       document.getElementById('quantityOnShelfMin').value;
     const quantityOnShelfMax =
       document.getElementById('quantityOnShelfMax').value;
-
     const query = new URLSearchParams({
       quantity_on_shelf_min: quantityOnShelfMin,
       quantity_on_shelf_max: quantityOnShelfMax,
@@ -136,7 +164,6 @@ document
       document.getElementById('quantityInOrderMin').value;
     const quantityInOrderMax =
       document.getElementById('quantityInOrderMax').value;
-
     const query = new URLSearchParams({
       quantity_in_order_min: quantityInOrderMin,
       quantity_in_order_max: quantityInOrderMax,
